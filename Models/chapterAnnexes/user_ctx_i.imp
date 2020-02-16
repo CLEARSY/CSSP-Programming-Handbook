@@ -1,0 +1,11 @@
+IMPLEMENTATION
+    user_ctx_i
+REFINES
+    user_ctx
+
+    // pragma CONSTANTS
+SEES
+    g_types
+VALUES
+    DELTA_T = 1000 // 1000 ms == 1s
+END

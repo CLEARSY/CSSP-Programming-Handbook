@@ -1,0 +1,35 @@
+/* WARNING : LCHIP system source file, do not edit */
+
+IMPLEMENTATION
+    user_component_i
+REFINES
+    user_component
+SEES
+    g_types
+IMPORTS
+    user_ctx,
+    inputs,
+    logic,
+    outputs
+
+    // pragma SAFETY_VARS
+CONCRETE_VARIABLES
+    divergence_test_var
+INVARIANT
+    divergence_test_var : uint8_t
+INITIALISATION
+    divergence_test_var := 0
+OPERATIONS
+    user_app =
+    BEGIN
+        divergence_test_var := 0;
+        read_inputs;
+        user_logic;
+        write_outputs
+    END;
+
+    user_consistency_error_detection_test(divergence_value) =
+    BEGIN
+        divergence_test_var := divergence_value
+    END
+END

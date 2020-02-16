@@ -1,0 +1,61 @@
+IMPLEMENTATION
+    logic_i
+REFINES
+    logic
+SEES
+    g_types,
+    g_operators,
+    io_constants,
+    lchip_interface,
+    user_ctx,
+    inputs
+
+    // pragma SAFETY_VARS
+CONCRETE_VARIABLES
+    O1,
+	O2
+INVARIANT
+    O1 : uint8_t &
+	O2 : uint8_t
+INITIALISATION
+    O1 := IO_OFF;
+	O2 := IO_OFF
+OPERATIONS
+    user_logic = 
+    BEGIN
+        VAR i1_, i2_, i3_ IN
+            i1_ : (i1_ : uint8_t);
+            i2_ : (i2_ : uint8_t);
+            i3_ : (i3_ : uint8_t);
+            
+            i1_ <-- get_I1;
+            i2_ <-- get_I2;
+            i3_ <-- get_I3;
+            
+            O1 := IO_OFF;
+            IF i1_ = IO_ON THEN
+                IF i2_ = IO_ON THEN
+                    IF i3_ = IO_ON THEN
+                        O1 := IO_ON
+                    END
+                END
+            END;
+            IF O1 = IO_ON THEN
+                O2 := IO_OFF
+            ELSE
+                O2 := IO_ON
+            END                
+        END    
+    END
+    ;
+
+    po <-- get_O1 =
+	BEGIN
+		po := O1
+	END;
+
+	po <-- get_O2 =
+	BEGIN
+		po := O2
+	END
+END

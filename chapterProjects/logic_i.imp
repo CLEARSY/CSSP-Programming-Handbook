@@ -1,0 +1,92 @@
+IMPLEMENTATION logic_i
+    
+REFINES logic
+    
+SEES
+    g_types,
+    g_operators,
+    io_constants,
+    lchip_interface,
+    inputs
+    
+    // pragma SAFETY_VARS
+    
+CONCRETE_VARIABLES
+    O1,
+    O2
+    
+INVARIANT
+    O1 : uint8_t &
+    O2 : uint8_t
+    
+INITIALISATION
+    O1 := IO_OFF;
+    O2 := IO_OFF
+    
+LOCAL_OPERATIONS
+    res <-- triAND(v1, v2, v3) =
+    PRE
+        res : uint8_t & v1: uint8_t &  v2: uint8_t & v3: uint8_t
+    THEN
+        res :: uint8_t
+    END
+    ;
+    res <-- negIO(val) =
+    PRE
+        res : uint8_t & val : uint8_t
+    THEN
+        res :: uint8_t
+    END
+    
+    
+OPERATIONS
+    res <-- triAND(v1, v2, v3) = /* AND over 3 values */
+    BEGIN
+        res :( res : uint8_t);
+        res := IO_OFF;
+        IF v1 = IO_ON THEN
+            IF v2 = IO_ON THEN
+                IF v3 = IO_ON THEN
+                    res := IO_ON
+                END
+            END
+        END  
+    END
+    ;
+    res <-- negIO(val) = /* negation of one value */
+    BEGIN
+        res :(res : uint8_t);
+        IF val = IO_ON THEN
+            res := IO_OFF
+        ELSE
+            res := IO_ON
+        END
+    END
+    ;
+    user_logic = 
+    BEGIN
+        VAR i1_, i2_, i3_ IN
+            i1_ : (i1_ : uint8_t);
+            i2_ : (i2_ : uint8_t);
+            i3_ : (i3_ : uint8_t);
+            
+            i1_ <-- get_I1;
+            i2_ <-- get_I2;
+            i3_ <-- get_I3;
+            
+            O1 <-- triAND(i1_, i2_, i3_); 
+            O2 <-- negIO(O1)
+        END
+    END
+    ;
+    
+    po <-- get_O1 =
+    BEGIN
+        po := O1
+    END;
+    
+    po <-- get_O2 =
+    BEGIN
+        po := O2
+    END
+END

@@ -1,0 +1,93 @@
+STRUCTURE
+
+- main.tex: the main document
+- structure.tex: document style
+- Pictures: directory containing all images. Images have to be sorted per chapter, reusing chapter naming
+- <chapters>: naming chapter<Something>. One directory per chapter, no numbering as the order i slikely to evolve. One chapter contains a tex file (to be included in main.tex) plus all required models.
+
+Models are directly inserted in the tex file and not copied/pasted.
+Use the following command to insert the model b_util.mch from the chapterIntroToProof: 
+\lstset{frameround=fttt,keywordstyle=\color{ocre}\bfseries}
+\lstinputlisting[language=B, frame=trBL]{chapterIntroToProof/b_util.mch}
+
+To select only one part of the model, use the modifiers firstline and lastline, like:
+\lstset{frameround=fttt,keywordstyle=\color{ocre}\bfseries}
+\lstinputlisting[language=B, frame=trbl, firstline=2,
+lastline=5,caption={<texte>},label=<reference>]{chapterIntroToProof/b_util.mch}
+
+To refer to this listing, use: \ref{<reference>}
+
+To insert just one line, use:
+\lstset{keywordstyle=\color{ocre}\bfseries}
+\lstinline[language=B]!BEGIN ii : INTEGER END!
+
+To add a c file, use:
+\lstset{keywordstyle=\color{black}, backgroundcolor=\color{anti-flashwhite}}
+\lstinputlisting[language=C, frame=single, framerule=0pt, firstline=3, lastline=23, basicstyle=\small]{chapterIntroToProof/L0_i.c}
+
+To add an interactive demonstration, use:
+\lstset{keywordstyle=\color{black}\bfseries}
+\lstinline[language=Proof]!dd(0) & dc(xx, BOOL) & mp & mp!
+
+----- ADDING A CHAPTER
+\chapterimage{back2.jpg} % Chapter heading image
+\chapter{<titre>}
+
+----- ADDING A SECTION
+\section{<titre>}\index{<titre>}
+
+----- ADDING A SUBSECTION
+\subsection{<titre>}\index{<section>!<titre>}
+
+----- ADDING A FIGURE
+\begin{figure}[h]
+\centering\includegraphics[scale=0.5]{<nom>}
+\caption{<caption>}
+\end{figure}
+
+----- ADDING A LIST
+\begin{enumerate}
+\item The first item
+\item The second item
+\item The third item
+\end{enumerate}
+
+\begin{itemize}
+\item The first item
+\item The second item
+\item The third item
+\end{itemize}
+
+\begin{description}
+\item[Name] Description
+\item[Word] Definition
+\item[Comment] Elaboration
+\end{description}
+
+----- ADDING A NOTATION
+\begin{notation}
+\end{notation}
+
+----- ADDING A REMARK
+\begin{remark}
+\end{remark}
+
+----- ADDING AN EXAMPLE 
+\begin{example}
+\end{example}
+
+\begin{example}[Example name]
+\end{example}
+
+----- ADDING AN EXERCISE 
+\begin{exercise}
+\end{exercise}
+
+----- ADDING A PROBLEM 
+\begin{problem}
+\end{problem}
+
+----- ADDING A VOCABULARY 
+\begin{vocabulary}[Word]
+Definition of word.
+\end{vocabulary}

@@ -1,0 +1,50 @@
+/* WARNING : LCHIP system source file, do not edit */
+
+IMPLEMENTATION
+    user_configuration_i
+REFINES
+    user_configuration
+SEES
+    g_types,
+    lchip_configuration
+
+    // pragma CONSTANTS
+VALUES
+    NB_MODULES = 1;
+    NB_INPUTS = 3;
+    NB_OUTPUTS = 2;
+
+    module_secu_ids = {
+        0 |-> 0xf0f0f0f0
+    };
+
+    module_nb_inputs = {
+        0 |-> 3
+    };
+
+    module_nb_outputs = {
+        0 |-> 2
+    };
+
+    input_module_ids = {
+        0 |-> 0,
+        1 |-> 0,
+        2 |-> 0
+    };
+
+    input_local_ids = {
+        0 |-> 0,
+        1 |-> 1,
+        2 |-> 2
+    };
+
+    output_module_ids = {
+        0 |-> 0,
+        1 |-> 0
+    };
+
+    output_local_ids = {
+        0 |-> 0,
+        1 |-> 1
+    }
+END

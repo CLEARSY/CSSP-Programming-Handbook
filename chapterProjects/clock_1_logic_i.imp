@@ -1,0 +1,59 @@
+IMPLEMENTATION
+    logic_i
+REFINES
+    logic
+SEES
+    g_types,
+    g_operators,
+    io_constants,
+    lchip_interface,
+    user_ctx,
+    inputs
+    
+    // pragma SAFETY_VARS
+CONCRETE_VARIABLES
+    O1,
+    O2
+INVARIANT
+    O1 : uint8_t &
+    O2 : uint8_t
+INITIALISATION
+    O1 := IO_OFF;
+    O2 := IO_OFF
+OPERATIONS
+    user_logic = 
+    BEGIN
+        VAR ms_tick_cycle, s_tick_cycle, tick IN
+            ms_tick_cycle :( ms_tick_cycle : uint32_t );
+            s_tick_cycle :( s_tick_cycle : uint32_t );
+            tick :( tick : uint32_t );
+            
+            ms_tick_cycle <-- get_ms_tick;
+            s_tick_cycle := ms_tick_cycle / delta_t;
+            tick := s_tick_cycle mod 2;
+            
+            IF tick = 0 THEN
+                O1 := IO_ON
+            ELSE
+                O1 := IO_OFF
+            END;
+            IF O1 = IO_OFF THEN
+                O2 := IO_ON
+            ELSE
+                O2 := IO_OFF
+            END
+        END
+    END
+    
+    ;
+    
+    po <-- get_O1 =
+    BEGIN
+        po := O1
+    END;
+    
+    po <-- get_O2 =
+    BEGIN
+        po := O2
+    END
+END
