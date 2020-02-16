@@ -55,3 +55,7 @@ developed in the 1980s. B is related to the Z notation and supports development 
 *SIL* put for Safety Integrity Level, is a relative level of risk-reduction provided by a safety function.  Its range is usually 
 between 0 and 4,  SIL4 being the most dependable and used for situations where people could die.
 
+## License
+
+All the resources are distributed under the Creative Commons Attribution-NonCommercial 3.0 International (CC BY-NC 3.0). The terms of the license are available at the following URL: https://creativecommons.org/licenses/by-nc/3.0/.
+
