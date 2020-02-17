@@ -44,8 +44,7 @@ a daughter-board to be plugged on a mother-board with digital IOs, will be SIL4-
 have to obtain the results to initiate a potentially dangerous action.
 
 *Atelier B* is an Integrated development environment (IDE) supporting the B method and the B language for software development, and 
-Event-B for system-level analysis.  Atelier **CSSP** is Atelier B extended withredundant code generator toolchain, bootloader, and a new 
-project type (**CSSP** project).
+Event-B for system-level analysis.  Atelier **CSSP** is Atelier B extended withredundant code generator toolchain, bootloader, and a new  project type (**CSSP** project).
 
 *B Method* is a method of software development based on the B formal language, used in the development of computer software. It was originally 
 developed in the 1980s. B is related to the Z notation and supports development of programming language code from specifications.
