@@ -133,7 +133,7 @@ The function is executed regularly as often as possible similar to Arduino progr
 \caption{The pseudo-code of the main loop}
 \end{figure}  
 There is no underlying operating system and no interrupt. 
-There is no delay(). There is no predefined cycle time. However if the outputs are not set and cross-read every 50 ms, the board SK$_0$ enters panic mode and reboots.\\
+There is no delay(). There is no predefined cycle time. However if the outputs are not set and cross-read every 50 ms by microcontrollers, the board SK$_0$ enters panic mode and reboots.\\
 Inputs are values captured at the beginning of a cycle (instantaneous values). Input capture is synchronised on both microcontrollers in order to acquire the same values (and prevent unwanted reboot because of different behaviour over the two central units). Outputs are maintained from one cycle to another.\\
 
 With the CLEARSY Safety Platform, the developer is incited to focus on developing a function, independently of its transformation and distributed execution. 
@@ -172,7 +172,7 @@ Editing CSSP components covers action \circled{D}. You are entitled to modify th
         \item adding sets (clause SETS) (optional).
     \end{itemize}   
     \item \textbf{user\_ctx\_i} by providing values to your concrete constants and sets (clause VALUES)
-    \item \textbf{user\_logic} by modifying the specification of the operation user\_logic. By default, the specification is skip, meaning that all variables defined at specification level are not modified. 
+    \item \textbf{user\_logic} by modifying the specification of the operation user\_logic. By default, the specification is skip, meaning that all variables defined at specification level are not modified. The clauses INVARIANT and INITIALISATION could be modified as well.
     \item \textbf{user\_logic\_i} by 
     \begin{itemize}    
         \item adding variables (clause CONCRETE\_VARIABLES) (optional),
@@ -208,7 +208,7 @@ Generating code for CSSP project covers actions \circled{I} and \circled{J}. The
 \label{programming:runner-error}
 \end{figure}  
 \begin{itemize}
-    \item If all the compilation stages succeed, you get information about the memory consumption for both Flash and RAM. Check that you do not reach 100\%. You are asked to reset the board to enter bootload mode. As soon as the reset button is pushed, the two upload LEDs start blinking for around 30 seconds. Then the last stage gets a green tick and you are asked to reset again the board to leave bootload mode. Once the reset button is pressed, the board starts executing the software copied in Flash memory within 2 seconds.
+    \item If all the compilation stages succeed, you get information about the memory consumption for both Flash and RAM. Check that you do not exceed 100\%\footnote{In this case, you need to simplify your program to remain within this limit.}. You are asked to reset the board to enter bootload mode. As soon as the reset button is pushed, the two upload LEDs start blinking for around 30 seconds. Then the last stage gets a green tick and you are asked to reset again the board to leave bootload mode. Once the reset button is pressed, the board starts executing the software copied in Flash memory within 2 seconds.
 \end{itemize}
       \begin{figure}[h]
 \centering\includegraphics[scale=0.3]{Pictures/chapterProgramming/runner-upload-completed.png}
