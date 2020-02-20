@@ -39,7 +39,7 @@ We are far from the concept: "it compiles, hence it works". The safety case alwa
     \item failing hardware: sensors are providing incorrect values, actuators cannot be commanded properly.
 \end{itemize}
 
-For a SIL4 system, the target reliability is between $10^{-7}$/h to $10^{-9}$/h. Given that a processor reliability is estimated between $10^{-4}$/h to $10^{-6}$/h, a single processor is not sufficient for a SIL3 or SIL4 system. That is why two processors (or more) are used in parallel (traditionally with a voter - the two processors have to come to the same decision to initiate a potentially risky action \footnote{for example, opening platform screen doors on a metro platform with the risk that waiting passengers could fall on the tracks if no train is present}. In addition, the two processors are equipped with protecting mechanisms that would allow the system to continue its mission in case of perturbation / failure.  
+For a SIL4 system, the target reliability is between $10^{-7}$/h to $10^{-9}$/h. Given that a processor reliability is estimated between $10^{-4}$/h to $10^{-6}$/h, a single processor is not sufficient for a SIL3 or SIL4 system. That is why two processors (or more) are used in parallel (traditionally with a voter - the two processors have to come to the same decision to initiate a potentially risky action \footnote{for example, opening platform screen doors on a metro platform with the risk that waiting passengers could fall on the tracks if no train is present.}). In addition, the two processors are equipped with protecting mechanisms that would allow the system to continue its mission in case of perturbation / failure.  
 
 
 
