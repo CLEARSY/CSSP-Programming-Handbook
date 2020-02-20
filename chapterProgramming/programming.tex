@@ -26,7 +26,7 @@ Warning ! Do not connect the board to your PC before having completed the instal
 The installation of the development environment is as follow:
 \begin{itemize}
     \item download the installer file containing the IDE \footnote{When you buy a CSSP starter kit, you receive by email a link to download the IDE.}. The file is around 0.4 GB. 
-    \item execute the installer and install it to a directory. It requires 3 GB of free space on your hard disk.  Choose preferably a path which does not contains spaces or special characters. 
+    \item execute the installer and install it to a directory. It requires 3 GB of free space on your hard disk.  Choose preferably a path which does not contain spaces or special characters. 
         \item install the FTDI driver. Execute the file CDM21228\_Setup.exe in the directory "Drivers \& runtime". This driver is required to emulate the CSSP serial port over USB in order to communicate with the board (upload, monitor).
 \end{itemize}  
 
@@ -219,7 +219,7 @@ Generating code for CSSP project covers actions \circled{I} and \circled{J}. The
 \subsection{Archiving and importing for CSSP project}
 
 Archiving and importing for CSSP project cover actions \circled{K} and \circled{L}. To archive a project, select it, right-click and select "archive". Chose the destination directory (the archive file has the .arc extension). Chose "whole project" then "Next" and "Finish".
-To import a CSSP project, select "Workspace/restore project". Click "Next". Select the archive file to you to import, give a name to the project and click "Next" then "Finish". A new project appears in the left pane, with the contents of the archived project.
+To import a CSSP project, select "Workspace/restore project". Click "Next". Select the archive file to import, give a name to the project and click "Next" then "Finish". A new project appears in the left pane, with the contents of the archived project.
 
 %-------------------------------------------------
 \section{Programming the board}
@@ -288,7 +288,7 @@ Figure \ref{programming:constant-decl} shows how constants are declared side-by-
     \item first goes a list of constants, either abstract or concrete, separated by commas.
     \item in the implementation, the pragma CONSTANTS is mandatory to indicate that the implementation contains constants that need to be managed by the safety library.
     \item in the specification, the PROPERTIES contains a list of predicates, separated by \&, where are expressed types and constraints. Properties are only in specification.
-    \item in the implementation, the VALUES sets the value of the constants. Values provided have to comply with constant properties.
+    \item in the implementation, the VALUES sets the values of the constants. Values provided have to comply with constant properties.
 \end{itemize}
 \begin{figure}[ht]
 \centering\includegraphics[scale=0.25]{Pictures/chapterProgramming/constants-decl.png}
@@ -313,18 +313,17 @@ In specification, substitutions express the properties that the variables comply
 \end{center} where \textit{var} is an identifier and \textit{type(var)} is a set expression compatible with the type of the variable \textit{var}. It could  also be of the form:
 \begin{center}
 \textit{var\_list : (predicate\_list)}    
-\end{center} where \textit{var\_list} is a list of identifiers separated by commas and \textit{predicate\_list} is conjunction of predicates separated by \&.
-\begin{figure}[ht]
+\end{center} where \textit{var\_list} is a list of identifiers separated by commas and \textit{predicate\_list} is conjunction of predicates separated by \&. Of course, if the value assigned to a variable is well-known, it is also possible to use the valuation substitution with:
+\begin{center}
+\textit{var := value}    
+\end{center} where \textit{value} is either a constant name, another variable identifier, a Boolean, or an Integer value. If none of the variables is going to be modified then use the substitution \textit{skip}.
+
+\begin{figure}[h]
 \centering\includegraphics[scale=0.30]{Pictures/chapterProgramming/subst-becomes-such-that.png}
 \caption{The substitution "becomes such that" used to specify that O0 and O1 are going to be modified within their type such that O0 is different from O1. }
 \label{programming:subst-becomes-such-that}
 \end{figure}  
-Of course, if the value assigned to a variable is well-known, it is also possible to use the valuation substitution with:
-\begin{center}
-\textit{var := value}    
-\end{center} where \textit{value} is a either a constant name, another variable identifier, a Boolean or an Integer value.\\
 
-If none of the variables is going to be modified then use the substitution \textit{skip}.\\
 
 \subsubsection{Implementation}
 
@@ -357,7 +356,7 @@ If the writing of an implementation is quite straightforward, especially when th
 For example, the figure \ref{programming:subst-reconcile} shows three different kinds of specification:
 \begin{itemize}
     \item the first one is fully non-deterministic. If one mistake is inserted in the implementation (both values at IO\_OFF for example), it is not detected by the proof.
-    \item the second one is non-deterministic but ensures that both values for O0 and O1 are different. Errors are detected except if the implementation is the contrary of what it should be.
+    \item the second one is non-deterministic but ensures that both values for $O_0$ and $O_1$ are different. Errors are detected except if the implementation is the contrary of what it should be.
     \item the last one is fully deterministic but very close to the implementation. One risk when having such close specification/implementation is that we are only proving the copy/paste action between both models.
 \end{itemize}
 It is up to you to determine what kind of specification and more importantly what level of verification you are looking for. If your model only contains loosely constrained specification, the proof will not improve much the level of confidence in the algorithm.

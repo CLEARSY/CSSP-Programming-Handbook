@@ -2,36 +2,36 @@
 \chapter{Combinatorial}
 
 This first project introduces the combinatorial or asynchronous behaviour of the board. The outputs are updated as soon as the inputs are modified and not after a given period of time (a delay) which is a synchronous behaviour.\\
-The equations that we would like to implement are:
+The equations we would like to implement are:
 \begin{center}
 O$_0$ = I$_1$ and I$_2$ and I$_3$\\
 O$_2$ = not(O$_1$)    
 \end{center}
-O$_1$ will be ON only when all inputs are ON, unless it will be OFF (the AND function over three Boolean values). 0$_2$ is the opposite of O$_1$: 0$_2$ is ON when O$_1$ is OFF, and OFF when O$_1$ is ON \footnote{This is a usual practice in the railways to detect if an equipment is failing or has not power supply. If both outputs are OFF, we know that the system is failing and the situation has to be handled with care.}.
+O$_1$ will be ON only when all inputs are ON, unless it will be OFF (the AND function over three Boolean values). O$_2$ is the opposite of O$_1$: O$_2$ is ON when O$_1$ is OFF, and OFF when O$_1$ is ON \footnote{This is a usual practice in the railways to detect if an equipment is failing or has no power supply. If both outputs are OFF, we know that the system is failing and the situation has to be handled with care.}.
 
 \section{Modelling}
 
 The modelling requires three steps:
 \begin{itemize}
     \item The first step is to create a project, to give it a name and select "CSSP project".
-    \item The second step is to add a board (only one) and to change the names of the inputs and outputs to respectively I1, I2, I3 and O1, O2.
+    \item The second step is to add a board (only one) and to change the names of the inputs and outputs to respectively $I_1$, $I_2$, $I_3$ and $O_1$, $O_2$.
     \item the third step is to modify the components \textit{logic} and \textit{logic\_i} to specify and implement the behaviour. 
 \end{itemize}
  
  \lstset{frameround=fttt,keywordstyle=\color{ocre}\bfseries}
 \lstinputlisting[language=B, frame=trbl, firstline=19,lastline=23,caption={Non-deterministic specification of the operation user\_logic},label=examples:combinatorial-spec, rulecolor=\color{ocre}]{chapterProjects/combinatorial_1_logic.mch}
 
-For \textit{logic}, we need to modify the specification of the operation user\_logic. We could be precise and express directly the relationship between inputs and outputs, but for the very first experiment, we prefer to simply assert that the two outputs O1 and O2 are going to be modified non-deterministically\footnote{The var :: type substitution is called non-deterministic because a particular value is provided. In the implementation, the value assigned to the variable var should belong to uint8\_t. We remind you that the input and output digital values are represented by 8-bit values: IO\_OFF and IO\_ON.} (see listing \ref{examples:combinatorial-spec}). 
+For \textit{logic}, we need to modify the specification of the operation user\_logic. We could be precise and express directly the relationship between inputs and outputs, but for the very first experiment, we prefer to simply assert that the two outputs $O_1$ and $O_2$ are going to be modified non-deterministically\footnote{The var :: type substitution is called non-deterministic because a particular value is provided. In the implementation, the value assigned to the variable var should belong to uint8\_t. We remind you that the input and output digital values are represented by 8-bit values: IO\_OFF and IO\_ON.} (see listing \ref{examples:combinatorial-spec}). 
 
  \lstset{frameround=fttt,keywordstyle=\color{ocre}\bfseries}
 \lstinputlisting[language=B, frame=trbl, firstline=24,lastline=49,caption={The implementation of the operation user\_logic},label=examples:combinatorial-impl, rulecolor=\color{ocre}]{chapterProjects/combinatorial_1_logic_i.imp}
 
 For \textit{logic\_i}, the variables 01 and 02 are already defined as CONCRETE\\VARIABLES and both initialised with the value IO\_OFF. No other variable is required for the implementation. We only need to modify the body of the operation user\_logic (see listing \ref{examples:combinatorial-impl}). \\
-We need three local variables to store the values of the three inputs I1, I2 and I3. So we define three variables i1\_, i2\_ and i3\_ with the substitution VAR ... IN ... END. The scope of this substitution in the END keyword, meaning that any use of these three variables outside of this scope will produce an error message. These three variables are typed prior to any use, by using the "becomes such that" substitution with the type uint8\_t. These three typing substitutions have no effect on the modelling but are required by the compiler.\\
-The values of the inputs is collected by calling the three operations get\_I1, get\_I2 and get\_I3. The notation "var <-- op" means that the operation op is called and return one value that is assigned to the variable var. In our case, i1\_, i2\_ and i3\_ are valued respectively with the values returned by get\_I1, get\_I2 and get\_I3.
+We need three local variables to store the values of the three inputs $I_1$, $I_2$ and $I_3$. So we define three variables i1\_, i2\_ and i3\_ with the substitution VAR ... IN ... END. The scope of this substitution in the END keyword, meaning that any use of these three variables outside of this scope will produce an error message. These three variables are typed prior to any use, by using the "becomes such that" substitution with the type uint8\_t. These three typing substitutions have no effect on the modelling but are required by the compiler.\\
+The values of the inputs are collected by calling the three operations get\_I1, get\_I2 and get\_I3. The notation "var <-- op" means that the operation op is called and returns one value that is assigned to the variable var. In our case, i1\_, i2\_ and i3\_ are valued respectively with the values returned by get\_I1, get\_I2 and get\_I3.
 The next 8 lines represent the computation of O1: O1 is first set to IO\_OFF and then set to IO\_ON only if the three inputs are all equal to IO\_ON. 
 \begin{remark}
-The compiler in it current version does not support multiple testing conditions. Hence IF THEN ELSE have to be nested. 
+The compiler in its current version does not support multiple testing conditions. Hence IF THEN ELSE have to be nested. 
 \end{remark}
 Finally O2 is computed with the last IF THEN ELSE, based on the value computed for O1.
 \begin{remark}
@@ -46,7 +46,7 @@ Now that the modelling is complete, we first need to check and prove the model. 
 \caption{Combinatorial\_1 project status}
 \label{projects:Combinatorial_1-project-status}
 \end{figure}
-The project is ready to be compiled. Be sure that your SK0 board is connected with the USB connector to your host. Right-click on the project name in the left pane and select "CSSP Runner". A new window appears, showing a carousel of all the steps of the compilation. Click on the green triangle on the top left. All steps are cleared until the last one where you are asked to reset the SK0 board. Use a pen to push on the reset button and release it. The board starts to blink as it enters bootload mode. After around 30s, the last step is cleared (green check) and you are again invited to reset the SK0 board. Push the reset button and release it. After 2 seconds, the board starts to execute your program.
+The project is ready to be compiled. Be sure that your SK0 board is connected with the USB connector to your host. Right-click on the project name in the left pane and select "CSSP Runner". A new window appears, showing a carousel of all the steps of the compilation. Click on the green triangle on the top left. All steps are cleared until the last one where you are asked to reset the SK0 board. Use a pen to push on the reset button and release it. The board starts to blink as it enters the bootload mode. After around 30s, the last step is cleared (green check) and you are again invited to reset the SK0 board. Push the reset button and release it. After 2 seconds, the board starts to execute your program.
 
 \section{Testing}
 

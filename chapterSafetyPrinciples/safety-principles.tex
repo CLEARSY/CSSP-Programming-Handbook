@@ -32,7 +32,7 @@ We are far from the concept: "it compiles, hence it works". The safety case alwa
 \noindent The "failures" considered are diverse and represent a large spectrum of situations: 
 \begin{itemize}
     \item specification error: we specified the wrong system or software.
-    \item development error: the specification is correct but the implementation does not comply with its specification. It could be a functional mistake: the algorithm is doing something different than what is expected. It could be non-functional: the operation is performed slower than expected.
+    \item development error: the specification is correct but the implementation does not comply with its specification. It could be a functional mistake: the algorithm is doing something different from what is expected. It could be non-functional: the operation is performed slower than expected.
     \item programming error: numbers are divided by 0, arithmetic computation produces overflow, or tables are accessed outside of their range.
     \item compilation error: binary code produced does not comply with source code \footnote{Who is reading the binary code these days?}
     \item wrong execution: the memory is corrupted (wrong data, wrong instruction, corrupted program counter), the hardware is failing (wrong instruction execution, incorrect storage/access)
@@ -59,7 +59,7 @@ The contribution of B to the safety case is explained in figure \ref{safety:B}. 
 
 Usually the last three bullets are taken into account with diversity, given that the program is executed on two (or more) processors: two different code generators are used to produce two different source codes from the same formal model. It is very unlikely that two tools developed with different technologies (programming language, libraries, compiler) and by independent teams are going to exhibit the same unsafe behaviour under the same conditions. One code generator could for example use a big endian memory model while the other uses a little endian one. Another option is to add void instructions \footnote{One code could be xx := yy + zz while the other is xx := yy + zz + 1 - 1 } in one source code only that do not change the final behaviour but produce a different binary code. That way a processor perturbation would not affect the two programs the same way because different parts of each program are being executed.\\
 
-We can clearly see that in the case of safety systems, the B method is only one part of the story and other means have to be set up in order to reach safety related objectives. These means require rare human resources to complete successfully because of the deep level of understanding of both hardware and software parts to consider. \\
+We can clearly see that in the case of safety systems, the B method is only one part of the story and other means have to be set up to reach safety related objectives. These means require rare human resources to complete successfully because of the deep level of understanding of both hardware and software parts to consider. \\
 
 \begin{figure}[h]
 \centering\includegraphics[scale=0.3]{Pictures/chapterSafetyPrinciples/SAFETY-BCSSPcycle.png}
@@ -98,7 +98,7 @@ From the implementable model, two binaries are generated:
     \item binary$_1$, obtained via a dedicated compiler (developed by CLEARSY) transforming a B model into HEX \footnote{"Intel HEX is a file format that conveys binary information in ASCII text form. It is commonly used for programming microcontrollers, EPROMs, and other types of programmable logic devices." (Wikipedia)} file,
     \item binary$_2$, produced with the Atelier B C code generator then compiled with the GCC compiler into another HEX file.
 \end{itemize} 
-Each binary represents the same function but is supposed to be made of different sequences of instructions because of the diversity of the tool chains. 
+Each binary represents the same function but is supposed to be made of different sequences of instructions because of the diversity of the toolchains. 
 Then the two binaries binary$_1$ and binary$_2$ are linked with:
 \begin{itemize}
     \item a sequencer, in charge of reading inputs, executing binary$_1$ then binary$_2$, and setting the outputs
@@ -106,7 +106,7 @@ Then the two binaries binary$_1$ and binary$_2$ are linked with:
 \end{itemize}
 The final program is thus made of binary$_1$, binary$_2$, the sequencer and the safety library. The memory mappings of binary$_1$ and binary$_2$ are separate. 
 
-This program is then uploaded on the two micro-controllers $\mu C_1$ and $\mu C_2$. The bootloader, on the electronic board, checks the integrity of the program (CRC, separate memory spaces). Then both micro-controllers start to execute the program. During its execution, the following are performed:
+This program is then uploaded on the two microcontrollers $\mu C_1$ and $\mu C_2$. The bootloader, on the electronic board, checks the integrity of the program (CRC, separate memory spaces). Then both microcontrollers start to execute the program. During its execution, the following are performed:
 \begin{itemize}
     \item internal verification:
 \begin{itemize}
@@ -126,12 +126,12 @@ The whole process is fully supported by adequate tools. In the figure \ref{arch:
     \item the B to HEX compiler, initially developed to control platform screen doors for metro lines in Brazil. This tool proceeds in two steps: a translation from B to ASM MIPS, then from ASM MIPS to HEX \footnote{In order to ease debugging as ASM MIPS to HEX is a straightforward line-to-line translation.}.
     \item the C to HEX GCC compiler.
     \item the linker combining the 2 hex files with the safety sequencer and libraries.
-    \item the bootloade.r\\
+    \item the bootloader\\
 \end{itemize}
 
 
 
-We can clearly see that the CLEARSY Safety Platform is a generic PLC \footnote{"A Programmable Logic Controller is an industrial digital computer which has been ruggedized and adapted for the control of manufacturing processes, such as assembly lines, or robotic devices, or any activity that requires high reliability control and ease of programming and process fault diagnosis." (wikipedia)} able to perform command and control over inputs and outputs. The overall architecture is similar between all instances of the CLEARSY Safety Platform. The differences are due to the physical interface:
+We can clearly see that the CLEARSY Safety Platform is a generic PLC \footnote{"A Programmable Logic Controller is an industrial digital computer which has been ruggedized and adapted for the control of manufacturing processes, such as assembly lines, or robotic devices, or any activity that requires high reliability control and ease of programming and process fault diagnosis." (wikipedia)} able to perform command and control over inputs and outputs. The overall architecture is similar among all instances of the CLEARSY Safety Platform. The differences are due to the physical interface:
 \begin{itemize}
     \item 5 IOs for SK$_0$, 28 for SK$_1$.
     \item digital (Boolean) IOs for SK$_0$ and SK$_1$, analog IOs in the future.
@@ -139,7 +139,7 @@ We can clearly see that the CLEARSY Safety Platform is a generic PLC \footnote{"
 \end{itemize}
 
 \begin{remark}
-From a safety point of view, the current architecture is valid for any kind of mono-core processor. The decision of using PIC32 micro-controllers (able to deliver around 50 DMIPS) was made based on our knowledge and experience of this processor. Implementing the CLEARSY Safety Platform on other hardware \footnote{STM32 for example} would "only" require the existing electronic board and software tools to be modified, without impacting much the safety demonstration.
+From a safety point of view, the current architecture is valid for any kind of mono-core processor. The decision of using PIC32 microcontrollers (able to deliver around 50 DMIPS) was made based on our knowledge and experience of this processor. Implementing the CLEARSY Safety Platform on other hardware \footnote{STM32 for example} would "only" require the existing electronic board and software tools to be modified, without impacting much the safety demonstration.
 \end{remark} 
 
 \begin{figure}[h]
@@ -156,11 +156,11 @@ From a safety point of view, the current architecture is valid for any kind of m
 The safety is built on top of few principles:
 \begin{itemize}
     \item a B formal model of the function to develop, proved to be coherent, to correctly implement its specification, and to be programming error-free,
-    \item four instances of the same function running on two micro-controllers (two per micro-controller with different binaries obtained from diverse tool-chains) and the detection of any divergent behaviour among the four instances,
+    \item four instances of the same function running on two microcontrollers (two per microcontroller with different binaries obtained from diverse tool-chains) and the detection of any divergent behaviour among the four instances,
     \item the deferred cross-verification of the programs on the two $\mu C$,
     \item outputs require both $\mu C_1$ and $\mu C_2$ to be alive and running as one provides energy and the other one the command,
     \item output physical states are regularly verified to comply with the memory states, to check the ability of the board to command its outputs,
-    \item input signals are continuous (0 or 5V) and are made dynamic (addition of a frequency signal) in order to prevent the short-circuit current from being considered  as high level (permissive) logic.
+    \item input signals are continuous (0 or 5V) and are made dynamic (addition of a frequency signal) to prevent the short-circuit current from being considered  as high level (permissive) logic.
 \end{itemize}
 
 \begin{table}[ht]
@@ -194,7 +194,7 @@ code generation & 10 & Incorrect memory map             & Memory overlap detecte
  However, as explained in the chapter \ref{preface}, the electronic board lacks some vital elements to comply with highest SIL requirements like:
  \begin{itemize}
      \item ensure galvanic isolation between the two half-boards, to prevent that one side of the board wrongly provides energy to the other side's outputs,
-     \item activate safety outputs with a sinusoidal signal \footnote{The micro-controller needs to be alive to generate the sinusoidal signal.} instead of a continuous signal, to ignore fault current and activate output.
+     \item activate safety outputs with a sinusoidal signal \footnote{The microcontroller needs to be alive to generate the sinusoidal signal.} instead of a continuous signal, to ignore fault current and activate output.
  \end{itemize}
 These missing features are only needed for real-life safety critical systems and do not prevent developers, whether students, researchers or engineers, from using the CLEARSY Safety Platform for education and prototype development. 
 
