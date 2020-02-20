@@ -26,7 +26,7 @@ These are the two PIC32 micro-controllers \footnote{PIC32MX795F512L with 512KB F
 
 \section{Serial bus}
 
-The serial bus is used to connect several SK$_0$ together (see \S\ref{annexes:SK0-HW-serial-bus} for more information). If only one board is used, this bus is not functional and the board ID has to be 0x0000b.
+The serial bus is used to connect several SK$_0$ together (see \S\ref{annexes:SK0-HW-serial-bus} for more information). If only one board is used, this bus is not functional and the board ID has to be 0b0000.
 
 \section{Inputs}
 
@@ -47,15 +47,15 @@ One input (see figure \ref{annexes:SK0-input}) is made of 3 pins:
 The board ID is made of four bits b$_0$ b$_1$ b$_2$ b$_3$ (see figure \ref{annexes:SK0-boardid}), in order to discriminate the boards when connected together through the serial bus.
 \begin{figure}[h]
 \centering\includegraphics[scale=0.668]{Pictures/chapterAnnexes/boardid.png}
-\caption{The board ID set to 0x0001b.}
+\caption{The board ID set to 0b0001.}
 \label{annexes:SK0-boardid}
 \end{figure}
 There are some constraints when setting board IDs:
 \begin{itemize}
-    \item If the board is used alone, its board ID should be 0x0000b (master board).
-    \item If the board is connected to other SK$_0$ board(s) through the serial bus, all board IDs have to be different and one board should have the board ID 0x0000b.
+    \item If the board is used alone, its board ID should be 0b0000 (master board).
+    \item If the board is connected to other SK$_0$ board(s) through the serial bus, all board IDs have to be different and one board should have the board ID 0b0000.
 \end{itemize}
-If no board ID 0x0000b is present, the board(s) will not upload any new software, as the master board is supposed to initiate the upload process. From the user point of view, everything is working properly (from compilation to upload complete) but the program is not flashed in memory and the board is not updated. So always check for the board ID 0x0000b on your system. \\
+If no board ID 0b0000 is present, the board(s) will not upload any new software, as the master board is supposed to initiate the upload process. From the user point of view, everything is working properly (from compilation to upload complete) but the program is not flashed in memory and the board is not updated. So always check for the board ID 0b0000 on your system. \\
 Modifying the board ID during the execution of the program leads to SK$_0$ entering the panic mode.
 
 \section{Serial channel selector}
@@ -73,7 +73,7 @@ This is a micro-USB interface for programming (flashing) the board and for monit
 There are 2 outputs on the board named O$_1$ and O$_2$. \\
 \begin{figure}[h]
 \centering\includegraphics[scale=0.28]{Pictures/chapterAnnexes/sk0-output.png}
-\caption{SK$_0$ output connector}
+\caption{SK$_0$ output connector for both O$_1$ and O$_2$}
 \label{annexes:SK0-output}
 \end{figure}\\
 One output (see figure \ref{annexes:SK0-output}) is made of 3 pins:
@@ -119,7 +119,7 @@ This green LED is ON when both micro-controllers are powered with +3.3V. This vo
 
 \section{High level input signal}
 
-Each red LED is ON when the electric level of the related input is ON. The input status can also be checked with the CSSP Monitor.
+Each red LED is ON when the electric level of the related input is ON. The input status can also be checked with the CSSP Serial Monitor (see §\ref{CSSP Serial Monitor}).
 These indications on the electric level of inputs are not guaranteed if the board is only powered by the USB connector.
 
 \section{Reboot, bootload or panic modes}
@@ -144,11 +144,12 @@ The outputs are not powered by the board. They are switches. The two red LEDs ON
 %---------------------------------------------------------------------
 \chapterimage{back2.jpg} % Chapter heading image
 \chapter{CSSP Serial Monitor}
+\label{CSSP Serial Monitor}
 
 The CSSP Serial Monitor is a feature offered at the project level. It allows to display the log messages emitted by the selected micro-controller on the serial bus. \\
 It requires:
 \begin{itemize}
-    \item one SK$_0$ board to be powered and connected trough its the micro-USB port
+    \item one SK$_0$ board to be powered and connected through its the micro-USB port
     \item the CSSP runner not to be running. The USB communication medium is not shared.
 \end{itemize}
 To start the CSSP Serial Monitor, select the project, right-click then select "CSSP Monitor". A new window shows up, with 3 buttons (Quit, Pause, and Clear) and a central area containing the text messages emitted by the SK$_0$ board.
@@ -192,7 +193,7 @@ The boards execute exactly the same complete logic, making reference to all inpu
 Board IDs all have to be different. One board has to have the ID 0 (the master board). The boards may be connected in any order. The terminator may be installed on any board.
 
 This feature was developed before SK$_1$ was available. It was used to test the concept but many issues appeared during experiments including jittering distributed clocks. One solution adopted was to have one board initiating the communication (master) and providing a time reference for the other boards. This solution ensures more stability but breaks the safety principles (the master board may be faulty on the time and propagate this error to other boards without means of detection/correction). \\\\
-\textbf{\color{ocre}This multi-boards configuration is provided without any support.} 
+\textbf{\color{ocre}This multi-board configuration is provided without any support.} 
 
 
 

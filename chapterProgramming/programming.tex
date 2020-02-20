@@ -246,7 +246,7 @@ The structure of the component \textit{logic} is seen in figure \ref{programming
 \end{itemize}
 \begin{figure}[ht]
 \centering\includegraphics[scale=0.25]{Pictures/chapterProgramming/programming-spec.png}
-\caption{The structure of the \texit{logic} component (specification).}
+\caption{The structure of the logic component (specification).}
 \label{programming:spec}
 \end{figure}
 Once the specification component has been modified\footnote{It should mention \textit{a minima} that the outputs are going to be modified when the operation user\_logic is executed.}, it is time to modify the component \textit{logic\_i}. 
@@ -322,7 +322,7 @@ In specification, substitutions express the properties that the variables comply
 Of course, if the value assigned to a variable is well-known, it is also possible to use the valuation substitution with:
 \begin{center}
 \textit{var := value}    
-\end{center} where \textit{value} is a either a constant name, another variable identifier, a Boolean or an integer value.\\
+\end{center} where \textit{value} is a either a constant name, another variable identifier, a Boolean or an Integer value.\\
 
 If none of the variables is going to be modified then use the substitution \textit{skip}.\\
 
@@ -337,7 +337,7 @@ In implementation, several substitutions are available. Some of these are shown 
 \end{figure}  
 
 \begin{itemize}
-    \item the \textit{skip} substitution, when the variables are nor modified.
+    \item the \textit{skip} substitution, when the variables are not modified.
     \item the assignment substitution \textit{var := value}.
     \item the sequence substitution ; to order substitutions.
     \item the IF-THEN-ELSE substitution. Only a single condition is accepted. If several conditions have to be verified, several IF-THEN-ELSE substitutions have to be nested. Testing conditions have to be simple, hence computations have to be performed independently from (before) the test\footnote{For example, it is not possible to write IF xx+1<=yy THEN skip END. Instead a local variable has to be declared and used to compute xx+1. The test is then performed with this local variable.}
@@ -358,6 +358,6 @@ For example, the figure \ref{programming:subst-reconcile} shows three different 
 \begin{itemize}
     \item the first one is fully non-deterministic. If one mistake is inserted in the implementation (both values at IO\_OFF for example), it is not detected by the proof.
     \item the second one is non-deterministic but ensures that both values for O0 and O1 are different. Errors are detected except if the implementation is the contrary of what it should be.
-    \item the last one is fully deterministic but very close to the specification. One risk when having such close specification/implementation is that we are only proving the copy/paste action between both models.
+    \item the last one is fully deterministic but very close to the implementation. One risk when having such close specification/implementation is that we are only proving the copy/paste action between both models.
 \end{itemize}
 It is up to you to determine what kind of specification and more importantly what level of verification you are looking for. If your model only contains loosely constrained specification, the proof will not improve much the level of confidence in the algorithm.
