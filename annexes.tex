@@ -86,6 +86,18 @@ An output is a switch, open or closed. When the switch is closed, the current ca
 
 The outputs are not powered by the board. It is your responsibility to connect either NOA or NOB to a current source.
 
+\section{Electric constraints}
+
+The SK$_0$ board is not expected to directly power external devices. Except for low demand components, the SK board outputs are instead supposed to activate relays. Below are listed the constraints to maximise board durability:  
+\begin{itemize}
+    \item Input must be 5VDC from the 5VDC of the input pin or external power.
+    \item Maximum output rating by output contact is:
+    \begin{itemize}
+        \item 1 A at 30VDC and
+        \item  0.3 A at 125 VAC.
+    \end{itemize}
+    \item The board is not protected against short circuit. Power consumption on inputs must be less than 100 mA.
+\end{itemize}
 
 
 %---------------------------------------------------------------------
