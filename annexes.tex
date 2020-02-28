@@ -416,3 +416,21 @@ Some more insidious errors located in the double compilation chain (DCC) may app
     \item in the runner window 
     \item or in the dcc\_build/log directory. For each compilation, one log file is generated (project name, date, time). For this file, search for error messages at the end of the file like "bxml error".
 \end{itemize}
+
+\section{Upload fails immediately}
+
+During the compilation process, everything goes well except the last step which fails immediately. If the board is indeed connected with a USB cable able to transmit information (and not only provide electricity), then it is probably due to the USB Serial Port management by Windows. The SK$_0$ board requires such a port to ensure communication with the PC used for development. The USB serial ports are allocated by Windows when you connect a board on USB but sometimes Windows fails to release the port; another serial port is then used, chosen among the one's available from COM2 to COM10. If COM11 is reached, it is not possible to set up communication between the board and the PC. To check if it is your case, open the Device Manager application and have a look at the \textit{Ports (COM \& LPT)} section (Fig. \ref{annexes:peripherals}). If it shows COM11 or greater, it is not possible to establish a communication between the PC and the board.
+
+\begin{figure}[h]
+\centering\includegraphics[scale=0.5]{Pictures/peripherals.jpg}
+\caption{USB serial ports from the Device Manager}
+\label{annexes:peripherals}
+\end{figure}
+
+In this case, you need to reuse one port already allocated (\textit{in use}). Right-click on the \textit{USB Serial Port} item, then select \textit{Properties}. A new windows shows up: switch to \textit{Port Settings}, then click on the button \textit{Advanced}. The window \textit{Advanced Settings} shows up; the first field is \textit{COM Port Number}: it indicates the current port used by the board. You need to select another one from COM2 to COM10 (shown as \textit{in use}). Select it and confirm that you want to use this COM port. Close the windows and try to upload again the software on the board. It should work now.
+
+\begin{figure}[h]
+\centering\includegraphics[scale=0.4]{Pictures/usb params.jpg}
+\caption{USB serial port advanced settings}
+\label{annexes:usb-params}
+\end{figure}
