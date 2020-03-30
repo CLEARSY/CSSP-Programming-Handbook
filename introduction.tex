@@ -8,7 +8,15 @@ Developing safety critical applications often requires rare human resources to c
 \caption{Metros and trains equipped with B SIL4 software}
 \end{figure}
 
-The CLEARSY Safety Platform is both a software and a hardware platform aimed at designing and executing safety critical applications. One formal modelling language is used to program the board. Programs are developed using the dedicated IDE or could be the by-product of some translation from a Domain Specific Language to B. The IDE takes care of the verification of the software (type check, proof, compilation) and then ensures its upload to the hardware platform. The program is guaranteed to execute until a misbehaviour is detected, leading to a safe restricted mode where board outputs are deactivated.\\
+The CLEARSY Safety Platform is both a software and a hardware platform aimed at designing and executing safety critical applications. Such applications implement a command-control function F (Fig. \ref{intro:F}) which cyclically reads inputs, performs computation, and sets outputs. If the platform integrity is not ensured, the execution of F is stopped while the outputs are deactivated (the safe state of the system should coincide with powerless outputs). 
+
+\begin{figure}[h]
+\centering\includegraphics[scale=0.2]{Pictures/Fnew.jpg}
+\caption{Execute the right F and execute the F right}
+\label{intro:F}
+\end{figure}
+
+One formal modelling language is used to program the board. Programs are developed using the dedicated IDE or could be the by-product of some translation from a Domain Specific Language to B. The IDE takes care of the verification of the software (type check, proof, compilation) and then ensures its upload to the hardware platform. The program is guaranteed to execute until a misbehaviour is detected, leading to a safe restricted mode where board outputs are deactivated.\\
 
 The CLEARSY Safety Platform eases the development of safety critical applications as:
 \begin{itemize}
@@ -17,6 +25,11 @@ The CLEARSY Safety Platform eases the development of safety critical application
     \item it is based on a formal language (B) and related proof tools,
     \item the mathematical proof replaces unit and integration testing.\\
 \end{itemize}
+
+\begin{figure}[h]
+\centering\includegraphics[scale=0.25]{Pictures/INTRO-SK0+SK1.jpg}
+\caption{Starter kits SK$_0$ (left) and SK$_1$ (right)}
+\end{figure}
 
 %
 The CLEARSY Safety Platform eases the certification of safety critical applications as:
@@ -27,10 +40,6 @@ The CLEARSY Safety Platform eases the certification of safety critical applicati
 
 The building blocks of the CLEARSY Safety Platform, already certified in international projects during the years 2017 and 2018 by several certification bodies, have been used to develop a generic version of this technology that could fit a broader range of applications. 
 
-\begin{figure}[h]
-\centering\includegraphics[scale=0.25]{Pictures/INTRO-SK0+SK1.jpg}
-\caption{Starter kits SK$_0$ (left) and SK$_1$ (right)}
-\end{figure}
 
 The first starter kit, SK$_0$, allows to experiment with the whole development chain, including the IDE, using the B-Method and an electronic board hosting the safe execution platform relying on two PIC32 microcontrollers, providing 3 digital inputs and 2 digital outputs.\\
 
